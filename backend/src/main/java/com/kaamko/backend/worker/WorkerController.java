@@ -16,8 +16,11 @@ public class WorkerController {
     }
 
     @GetMapping
-    public List<Worker> getWorkers() {
-        return repository.findAll();
+    public List<Worker> getWorkers(@RequestParam(required = false) String skill) {
+        if (skill == null) {
+            return repository.findAll();
+        }
+        return repository.findBySkillIgnoreCase(skill);
     }
 
     @PostMapping
